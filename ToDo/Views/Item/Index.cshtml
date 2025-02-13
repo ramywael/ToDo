@@ -1,0 +1,89 @@
+﻿@* <div class="container mt-3"> *@
+@*     <h1>Welcome, @TempData["UserName"]</h1> *@
+@*     <h6>Here is your List</h6> *@
+
+@*     <a href="your-create-item-url" class="btn btn-primary btn-lg mt-3"> *@
+@*         <i class="fas fa-plus"></i> Create Item *@
+@*     </a> *@
+
+@*     <div class="table-responsive mt-3"> *@
+@*         <table class="table table-dark"> *@
+@*             <thead class="table-dark"> *@
+@*                 <tr> *@
+@*                     <th>Title</th> *@
+@*                     <th>Description</th> *@
+@*                     <th>Deadline</th> *@
+@*                     <th>Action</th> *@
+@*                 </tr> *@
+@*             </thead> *@
+@*             <tbody> *@
+@*                 <!-- Example row, replace with dynamic data --> *@
+@*                 <tr> *@
+@*                     <td>Project Alpha</td> *@
+@*                     <td>Build a modern web app</td> *@
+@*                     <td>2025-03-15</td> *@
+@*                     <td> *@
+@*                         <a href="edit-url" class="btn btn-warning btn-sm"> *@
+@*                             <i class="fas fa-edit"></i> Edit *@
+@*                         </a> *@
+@*                         <a href="delete-url" class="btn btn-danger btn-sm"> *@
+@*                             <i class="fas fa-trash"></i> Delete *@
+@*                         </a> *@
+@*                     </td> *@
+@*                 </tr> *@
+@*                 <!-- Repeat rows dynamically --> *@
+@*             </tbody> *@
+@*         </table> *@
+@*     </div> *@
+@* </div> *@
+
+@section Scripts {
+    @if (TempData["Notification"] != null)
+    {
+        <script>
+            toastr.success('@TempData["Notification"]')
+        </script>
+    }
+}
+
+<section class="vh-100" style="background-color: #121212; color: #fff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+                <div class="card rounded-3" style="background-color: #1e1e1e; box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.3);">
+                    <div class="card-body p-4">
+                        <h4 class="text-center my-3 pb-3 text-neon">🚀 To Do App</h4>
+                        <div class="col-12 mt-4 mb-3 text-center">
+                            <a href="/Item/Create" class="btn btn-neon px-4 py-2">Create New Item</a>
+                        </div>
+                        <table class="table table-dark table-striped mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Deadline</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @foreach(var item in Model){
+                                    <tr>
+                                        <th>@item.Title</th>
+                                        <td>@item.Description</td>
+                                        <td><span class="badge bg-warning">@item.DeadLine</span></td>
+                                        <td>
+                                            <a href="/Item/Delete?itemId=@item.Id" class="btn btn-danger btn-sm">🗑 Delete</a>
+                                            <a href="/Item/Edit?itemId=@item.Id" class="btn btn-success btn-sm ms-1">✅ Edit</a>
+                                        </td>
+                                    </tr>
+                               }
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
